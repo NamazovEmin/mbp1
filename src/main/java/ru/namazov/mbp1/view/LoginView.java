@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.LoginPresenter;
 
-@Route("")
+@Route(value = "")
 public class LoginView extends VerticalLayout {
 
     private final LoginPresenter loginPresenter;

@@ -25,6 +25,11 @@ public class BaseView extends AppLayout {
     public BaseView() {
         createHeader();
         createDrawer();
+        createMain();
+    }
+
+    private void createMain() {
+
     }
 
     private void createHeader() {
@@ -39,6 +44,7 @@ public class BaseView extends AppLayout {
         horizontalLayout.addClassNames(
                 LumoUtility.Padding.Vertical.NONE,
                 LumoUtility.Padding.Horizontal.MEDIUM);
+
         addToNavbar(horizontalLayout);
     }
 
