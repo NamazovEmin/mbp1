@@ -56,7 +56,7 @@ public class BaseView extends AppLayout {
     }
 
     private void initRightDrawerBarLinks() {
-        RouterLink clientsLink = new RouterLink("Клиенты", LoginView.class);
+        RouterLink clientsLink = new RouterLink("Клиенты", ClientView.class);
         RouterLink orderLink = new RouterLink("Заказы", MainView.class);
         routerLinkList.add(clientsLink);
         routerLinkList.add(orderLink);
