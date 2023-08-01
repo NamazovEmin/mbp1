@@ -6,7 +6,7 @@
  * Copyright (c) . Namazov Emin. All rights reserved.
  */
 
-package ru.namazov.mbp1;
+package ru.namazov.mbp1.presenter;
 
 import org.springframework.stereotype.Component;
 

@@ -8,7 +8,7 @@ import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import ru.namazov.mbp1.LoginPresenter;
+import ru.namazov.mbp1.presenter.LoginPresenter;
 
 @Route(value = "")
 public class LoginView extends VerticalLayout {

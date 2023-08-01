@@ -33,13 +33,13 @@ public class BaseView extends AppLayout {
     }
 
     private void createHeader() {
-        H1 logo = new H1("Vaadin CRM");
+        H1 logo = new H1("Namazov Emin CRM for meat business");
         logo.addClassNames(
                 LumoUtility.FontSize.LARGE,
                 LumoUtility.Margin.MEDIUM);
         HorizontalLayout horizontalLayout = new HorizontalLayout(new DrawerToggle(), logo);
         horizontalLayout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
-        horizontalLayout.expand(logo); // <4>
+        horizontalLayout.expand(logo);
         horizontalLayout.setWidthFull();
         horizontalLayout.addClassNames(
                 LumoUtility.Padding.Vertical.NONE,
@@ -56,7 +56,7 @@ public class BaseView extends AppLayout {
     }
 
     private void initRightDrawerBarLinks() {
-        RouterLink clientsLink = new RouterLink("Клиенты", ClientView.class);
+        RouterLink clientsLink = new RouterLink("Клиенты", ClientsView.class);
         RouterLink orderLink = new RouterLink("Заказы", MainView.class);
         routerLinkList.add(clientsLink);
         routerLinkList.add(orderLink);
