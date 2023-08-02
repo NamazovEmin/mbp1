@@ -30,9 +30,7 @@ public class ClientsView extends VerticalLayout{
 
     private void createFooter() {
         var createButton = new Button("Добавить");
-        createButton.addSingleClickListener(click -> {
-            UI.getCurrent().navigate(ClientEditView.class);
-        });
+        createButton.addSingleClickListener(click -> UI.getCurrent().navigate(ClientEditView.class));
         add(createButton);
     }
 
