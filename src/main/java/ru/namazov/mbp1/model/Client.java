@@ -7,9 +7,6 @@ package ru.namazov.mbp1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +17,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "clients")
 @Getter
-public class Client {
+public class Client extends BaseEntity{
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @Column(name = "id", nullable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -41,7 +38,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", name='" + name + '\'' + ", telNumber='" + telNumber + '\'' + ", email='" +
+        return "Client{" + "id=" + super.getId() + ", name='" + name + '\'' + ", telNumber='" + telNumber + '\'' + ", email='" +
                 email + '\'' + ", contactMen='" + contactMen + '\'' + '}';
     }
 }
