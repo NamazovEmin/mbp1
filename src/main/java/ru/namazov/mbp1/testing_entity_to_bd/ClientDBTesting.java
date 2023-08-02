@@ -18,15 +18,57 @@ package ru.namazov.mbp1.testing_entity_to_bd;
 import org.springframework.stereotype.Component;
 
 import ru.namazov.mbp1.model.Client;
+import ru.namazov.mbp1.model.Product;
 import ru.namazov.mbp1.repository.ClientRepository;
+import ru.namazov.mbp1.repository.ProductRepository;
 
 @Component
 public class ClientDBTesting {
-    private  final ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+    private final ProductRepository productRepository;
 
-    public ClientDBTesting(ClientRepository clientRepository) {
+    public ClientDBTesting(ClientRepository clientRepository, ProductRepository productRepository) {
         this.clientRepository = clientRepository;
+        this.productRepository = productRepository;
         makeClient();
+        makeProduct();
+    }
+
+    private void makeProduct() {
+        Product product = new Product();
+        product.setName("Мясо Оленины");
+        product.setCount(20L);
+        product.setMeasurement("кг");
+        product.setDescription("Замороженное");
+        productRepository.save(product);
+
+        Product product1 = new Product();
+        product1.setName("Мясо Оленины");
+        product1.setCount(10L);
+        product1.setMeasurement("кг");
+        product1.setDescription("Охлажденное");
+        productRepository.save(product1);
+
+        Product product2 = new Product();
+        product2.setName("Мясо Свиное");
+        product2.setCount(10L);
+        product2.setMeasurement("кг");
+        product2.setDescription("Охлажденное");
+        productRepository.save(product2);
+
+        Product product3 = new Product();
+        product3.setName("Мясо Баранье");
+        product3.setCount(25L);
+        product3.setMeasurement("кг");
+        product3.setDescription("Охлажденное");
+        productRepository.save(product3);
+
+        Product product4 = new Product();
+        product4.setName("Говяжий Стейк");
+        product4.setCount(7L);
+        product4.setMeasurement("шт");
+        product4.setDescription("Стейк с жирком на кости 200-250г");
+        productRepository.save(product4);
     }
 
     private void makeClient() {
