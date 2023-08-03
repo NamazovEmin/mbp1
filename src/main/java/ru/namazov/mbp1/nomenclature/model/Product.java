@@ -3,10 +3,19 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.model;
+package ru.namazov.mbp1.nomenclature.model;
+
+import java.util.List;
+
+import ru.namazov.mbp1.model.BaseEntity;
+import ru.namazov.mbp1.model.Order;
+import ru.namazov.mbp1.model.StorageProduct;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,22 +26,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Product extends BaseEntity{
-
-//    @Id
-//    @Column(name = "id", nullable = false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+public class Product extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "count")
-    private Long count;
 
     @Column(name = "measurement")
     private String measurement;
 
     @Column(name = "description")
     private String description;
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private List<Order> orders;
+
+    @OneToOne(mappedBy = "product")
+    private StorageProduct storageProduct;
 }
