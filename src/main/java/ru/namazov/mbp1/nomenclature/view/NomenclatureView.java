@@ -10,6 +10,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+import ru.namazov.mbp1.nomenclature.view.product.ProductView;
 import ru.namazov.mbp1.view.BaseView;
 
 @Route(value = "/admin/nomenclature", layout = BaseView.class)

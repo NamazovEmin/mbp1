@@ -3,7 +3,7 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.nomenclature.view;
+package ru.namazov.mbp1.nomenclature.view.product;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;

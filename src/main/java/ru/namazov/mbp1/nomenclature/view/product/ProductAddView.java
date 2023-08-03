@@ -3,15 +3,13 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.nomenclature.view;
+package ru.namazov.mbp1.nomenclature.view.product;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.ViewConstructor;
@@ -19,27 +17,19 @@ import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
 import ru.namazov.mbp1.view.BaseView;
 
-@Route(value = "/admin/nomenclature/products/edit", layout = BaseView.class)
-public class ProductEditView extends VerticalLayout implements HasUrlParameter<Long>, ViewConstructor {
+@Route(value = "/admin/nomenclature/products/add", layout = BaseView.class)
+public class ProductAddView extends VerticalLayout implements ViewConstructor {
 
-    private Product product;
-    private ProductPresenter productPresenter;
+    private final ProductPresenter productPresenter;
     private TextField nameField;
     private TextField measurementField;
     private TextField descriptionField;
 
-    public ProductEditView(ProductPresenter productPresenter) {
+    public ProductAddView(ProductPresenter productPresenter) {
         this.productPresenter = productPresenter;
-    }
-
-    @Override
-    public void setParameter(BeforeEvent event,Long id) {
-        if (id != null) {
-            product = productPresenter.findById(id);
-            header();
-            main();
-            footer();
-        }
+        header();
+        main();
+        footer();
     }
 
     @Override
@@ -52,17 +42,14 @@ public class ProductEditView extends VerticalLayout implements HasUrlParameter<L
         nameField = new TextField();
         nameField.setLabel("Название");
         nameField.setSizeFull();
-        nameField.setValue(product.getName());
 
         measurementField = new TextField();
         measurementField.setLabel("Единица измерения");
         measurementField.setSizeFull();
-        measurementField.setValue(product.getMeasurement());
 
         descriptionField = new TextField();
         descriptionField.setLabel("Описание товара");
         descriptionField.setSizeFull();
-        descriptionField.setValue(product.getDescription());
 
         add(nameField);
         add(measurementField);
@@ -85,6 +72,7 @@ public class ProductEditView extends VerticalLayout implements HasUrlParameter<L
     private Button saveButton() {
         Button saveButton = new Button("Сохранить");
         saveButton.addSingleClickListener(click -> {
+            Product product = new Product();
             product.setName(nameField.getValue());
             product.setMeasurement(measurementField.getValue());
             product.setDescription(descriptionField.getValue());
