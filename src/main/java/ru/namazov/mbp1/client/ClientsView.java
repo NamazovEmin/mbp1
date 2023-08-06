@@ -9,8 +9,10 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
+import ru.namazov.mbp1.ViewConstructor;
 import ru.namazov.mbp1.model.Client;
 import ru.namazov.mbp1.presenter.ClientPresenter;
 import ru.namazov.mbp1.view.MainView;
@@ -19,24 +21,29 @@ import jakarta.annotation.security.PermitAll;
 
 @Route(value = "client", layout = MainView.class)
 @PermitAll
-public class ClientsView extends VerticalLayout{
+public class ClientsView extends VerticalLayout implements ViewConstructor {
 
     private final ClientPresenter clientPresenter;
     private final Grid<Client> table = new Grid<>(Client.class, false);
 
     public ClientsView(ClientPresenter clientPresenter) {
         this.clientPresenter = clientPresenter;
-        createTable();
-        createFooter();
+        header();
+        main();
+        footer();
     }
 
-    private void createFooter() {
-        var createButton = new Button("Добавить");
-        createButton.addSingleClickListener(click -> UI.getCurrent().navigate(ClientEditView.class));
-        add(createButton);
+    @Override
+    public void header() {
+        TextField nameField = new TextField();
+        nameField.setValue("Список Клиентов");
+        nameField.setSizeFull();
+        nameField.setReadOnly(true);
+        add(nameField);
     }
 
-    private void createTable() {
+    @Override
+    public void main() {
         table.addColumn(Client::getName).setHeader("Название фирмы").setResizable(true);
         table.addColumn(Client::getContactMen).setHeader("Контактное лицо").setResizable(true);
         table.addColumn(Client::getTelNumber).setHeader("Телефон").setResizable(true);
@@ -49,5 +56,12 @@ public class ClientsView extends VerticalLayout{
             }
         });
         add(table);
+    }
+
+    @Override
+    public void footer() {
+        var createButton = new Button("Добавить");
+        createButton.addSingleClickListener(click -> UI.getCurrent().navigate(ClientEditView.class));
+        add(createButton);
     }
 }
