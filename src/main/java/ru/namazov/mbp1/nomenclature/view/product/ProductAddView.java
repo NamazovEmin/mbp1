@@ -15,9 +15,9 @@ import com.vaadin.flow.router.Route;
 import ru.namazov.mbp1.ViewConstructor;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
-import ru.namazov.mbp1.view.BaseView;
+import ru.namazov.mbp1.view.MainView;
 
-@Route(value = "/admin/nomenclature/products/add", layout = BaseView.class)
+@Route(value = "/admin/nomenclature/products/add", layout = MainView.class)
 public class ProductAddView extends VerticalLayout implements ViewConstructor {
 
     private final ProductPresenter productPresenter;

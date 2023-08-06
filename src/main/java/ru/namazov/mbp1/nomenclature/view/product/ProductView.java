@@ -16,9 +16,9 @@ import com.vaadin.flow.router.Route;
 import ru.namazov.mbp1.ViewConstructor;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
-import ru.namazov.mbp1.view.BaseView;
+import ru.namazov.mbp1.view.MainView;
 
-@Route(value = "/admin/nomenclature/products", layout = BaseView.class)
+@Route(value = "/admin/nomenclature/products", layout = MainView.class)
 public class ProductView extends VerticalLayout implements ViewConstructor {
 
     private final ProductPresenter productPresenter;
@@ -52,10 +52,10 @@ public class ProductView extends VerticalLayout implements ViewConstructor {
 
     @Override
     public void footer() {
-        add(new HorizontalLayout(addButton(), saveButton()));
+        add(new HorizontalLayout(addButton(), editButton()));
     }
 
-    private Button saveButton() {
+    private Button editButton() {
         var editButton = new Button("Редактировать");
         editButton.addSingleClickListener(click -> {
             Product product = table.asSingleSelect().getValue();

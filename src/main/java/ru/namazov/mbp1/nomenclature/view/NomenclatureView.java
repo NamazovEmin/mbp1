@@ -11,9 +11,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.nomenclature.view.product.ProductView;
-import ru.namazov.mbp1.view.BaseView;
+import ru.namazov.mbp1.view.MainView;
 
-@Route(value = "/admin/nomenclature", layout = BaseView.class)
+@Route(value = "/admin/nomenclature", layout = MainView.class)
 public class NomenclatureView extends VerticalLayout {
 
     public NomenclatureView() {
