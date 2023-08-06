@@ -13,9 +13,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import ru.namazov.mbp1.ViewConstructor;
+import ru.namazov.mbp1.base.ViewConstructor;
+import ru.namazov.mbp1.client.model.Client;
 import ru.namazov.mbp1.client.presenter.ClientPresenter;
-import ru.namazov.mbp1.model.Client;
 import ru.namazov.mbp1.view.MainView;
 
 import jakarta.annotation.security.PermitAll;

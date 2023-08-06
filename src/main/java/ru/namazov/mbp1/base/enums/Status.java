@@ -3,10 +3,9 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.enums;
+package ru.namazov.mbp1.base.enums;
 
 public enum Status {
-
     ENABLE,
     DISABLE
 }

@@ -3,14 +3,19 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.model;
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+package ru.namazov.mbp1.base.model;
 
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import ru.namazov.mbp1.enums.Status;
+import ru.namazov.mbp1.base.enums.Status;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
