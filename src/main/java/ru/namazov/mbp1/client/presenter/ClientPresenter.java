@@ -1,4 +1,9 @@
-package ru.namazov.mbp1.presenter;
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+package ru.namazov.mbp1.client.presenter;
 
 import java.util.List;
 
@@ -23,5 +28,9 @@ public class ClientPresenter {
 
     public List<Client> findAll() {
         return clientRepository.findAll();
+    }
+
+    public Client findById(Long id) {
+        return clientRepository.findById(id).orElseThrow();
     }
 }

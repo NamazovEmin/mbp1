@@ -3,30 +3,31 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.client;
+package ru.namazov.mbp1.client.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.ViewConstructor;
+import ru.namazov.mbp1.client.presenter.ClientPresenter;
 import ru.namazov.mbp1.model.Client;
-import ru.namazov.mbp1.presenter.ClientPresenter;
 import ru.namazov.mbp1.view.MainView;
 
 import jakarta.annotation.security.PermitAll;
 
 @Route(value = "client", layout = MainView.class)
 @PermitAll
-public class ClientsView extends VerticalLayout implements ViewConstructor {
+public class ClientView extends VerticalLayout implements ViewConstructor {
 
     private final ClientPresenter clientPresenter;
     private final Grid<Client> table = new Grid<>(Client.class, false);
 
-    public ClientsView(ClientPresenter clientPresenter) {
+    public ClientView(ClientPresenter clientPresenter) {
         this.clientPresenter = clientPresenter;
         header();
         main();
@@ -49,19 +50,28 @@ public class ClientsView extends VerticalLayout implements ViewConstructor {
         table.addColumn(Client::getTelNumber).setHeader("Телефон").setResizable(true);
         table.addColumn(Client::getEmail).setHeader("Почта").setResizable(true);
         table.setItems(clientPresenter.findAll());
-        table.addItemClickListener(click -> {
-            Client client = table.asSingleSelect().getValue();
-            if (client != null) {
-                UI.getCurrent().navigate(ClientEditView.class, client.getId());
-            }
-        });
         add(table);
     }
 
     @Override
     public void footer() {
+        add(new HorizontalLayout(addButton(), editButton()));
+    }
+
+    private Button addButton() {
         var createButton = new Button("Добавить");
-        createButton.addSingleClickListener(click -> UI.getCurrent().navigate(ClientEditView.class));
-        add(createButton);
+        createButton.addSingleClickListener(click -> UI.getCurrent().navigate(ClientAddView.class));
+        return createButton;
+    }
+
+    private Button editButton() {
+        var editButton = new Button("Редактировать");
+        editButton.addSingleClickListener(click -> {
+            Client client = table.asSingleSelect().getValue();
+            if (client != null) {
+                UI.getCurrent().navigate(ClientEditView.class, client.getId());
+            }
+        });
+        return editButton;
     }
 }
