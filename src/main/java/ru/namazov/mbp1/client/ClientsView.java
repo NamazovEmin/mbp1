@@ -3,7 +3,7 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.view;
+package ru.namazov.mbp1.client;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -13,14 +13,16 @@ import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.model.Client;
 import ru.namazov.mbp1.presenter.ClientPresenter;
+import ru.namazov.mbp1.view.MainView;
 
+import jakarta.annotation.security.PermitAll;
 
-@Route(value = "clients", layout = BaseView.class)
+@Route(value = "client", layout = MainView.class)
+@PermitAll
 public class ClientsView extends VerticalLayout{
 
     private final ClientPresenter clientPresenter;
     private final Grid<Client> table = new Grid<>(Client.class, false);
-
 
     public ClientsView(ClientPresenter clientPresenter) {
         this.clientPresenter = clientPresenter;

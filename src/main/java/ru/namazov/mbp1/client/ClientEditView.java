@@ -1,4 +1,9 @@
-package ru.namazov.mbp1.view;
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+package ru.namazov.mbp1.client;
 
 
 
@@ -15,8 +20,12 @@ import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.model.Client;
 import ru.namazov.mbp1.presenter.ClientEditorPresenter;
+import ru.namazov.mbp1.view.MainView;
 
-@Route(value = "clients/edit", layout = BaseView.class)
+import jakarta.annotation.security.PermitAll;
+
+@Route(value = "client/edit", layout = MainView.class)
+@PermitAll
 public class ClientEditView extends VerticalLayout implements HasUrlParameter<Long> {
 
     private Client client;
