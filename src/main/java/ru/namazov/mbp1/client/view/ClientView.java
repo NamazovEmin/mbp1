@@ -7,10 +7,11 @@ package ru.namazov.mbp1.client.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.base.ViewConstructor;
@@ -22,56 +23,79 @@ import jakarta.annotation.security.PermitAll;
 
 @Route(value = "client", layout = MainView.class)
 @PermitAll
-public class ClientView extends VerticalLayout implements ViewConstructor {
+public class ClientView extends VerticalLayout implements HasUrlParameter<Long>, ViewConstructor {
 
-    private final ClientPresenter clientPresenter;
-    private final Grid<Client> table = new Grid<>(Client.class, false);
+    private Client client;
+    private ClientPresenter clientPresenter;
+    private TextField nameField;
+    private TextField telNumberField;
+    private TextField contactMenField;
+    private TextField emailField;
 
     public ClientView(ClientPresenter clientPresenter) {
         this.clientPresenter = clientPresenter;
-        header();
-        main();
-        footer();
+    }
+
+    @Override
+    public void setParameter(BeforeEvent event, Long id) {
+        if (id != null) {
+            client = clientPresenter.findById(id);
+            header();
+            main();
+            footer();
+        }
     }
 
     @Override
     public void header() {
-        TextField nameField = new TextField();
-        nameField.setValue("Список Клиентов");
-        nameField.setSizeFull();
-        nameField.setReadOnly(true);
-        add(nameField);
+        add(new HorizontalLayout(backButton()));
     }
 
     @Override
     public void main() {
-        table.addColumn(Client::getName).setHeader("Название фирмы").setResizable(true);
-        table.addColumn(Client::getContactMen).setHeader("Контактное лицо").setResizable(true);
-        table.addColumn(Client::getTelNumber).setHeader("Телефон").setResizable(true);
-        table.addColumn(Client::getEmail).setHeader("Почта").setResizable(true);
-        table.setItems(clientPresenter.findAll());
-        add(table);
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        add(horizontalLayout);
+
+        nameField = new TextField();
+        nameField.setValue(client.getName());
+        nameField.setLabel("Название Фирмы");
+        nameField.setSizeFull();
+        nameField.setReadOnly(true);
+
+        telNumberField = new TextField();
+        telNumberField.setValue(client.getTelNumber());
+        telNumberField.setLabel("Телефон");
+        telNumberField.setSizeFull();
+        telNumberField.setReadOnly(true);
+
+        contactMenField = new TextField();
+        contactMenField.setValue(client.getContactMen());
+        contactMenField.setLabel("Контактное лицо");
+        contactMenField.setSizeFull();
+        contactMenField.setReadOnly(true);
+
+        emailField = new TextField();
+        emailField.setValue(client.getEmail());
+        emailField.setLabel("Почта");
+        emailField.setSizeFull();
+        emailField.setReadOnly(true);
+
+        add(nameField);
+        add(telNumberField);
+        add(contactMenField);
+        add(emailField);
     }
 
     @Override
     public void footer() {
-        add(new HorizontalLayout(addButton(), editButton()));
+        add(new HorizontalLayout(backButton()));
     }
 
-    private Button addButton() {
-        var createButton = new Button("Добавить");
-        createButton.addSingleClickListener(click -> UI.getCurrent().navigate(ClientAddView.class));
-        return createButton;
-    }
-
-    private Button editButton() {
-        var editButton = new Button("Редактировать");
-        editButton.addSingleClickListener(click -> {
-            Client client = table.asSingleSelect().getValue();
-            if (client != null) {
-                UI.getCurrent().navigate(ClientEditView.class, client.getId());
-            }
+    private Button backButton() {
+        Button backButton = new Button("Назад");
+        backButton.addSingleClickListener(click -> {
+            UI.getCurrent().navigate(ClientViewAll.class);
         });
-        return editButton;
+        return backButton;
     }
 }
