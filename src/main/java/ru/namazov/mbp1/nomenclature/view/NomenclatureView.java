@@ -13,7 +13,10 @@ import com.vaadin.flow.router.Route;
 import ru.namazov.mbp1.nomenclature.view.product.ProductView;
 import ru.namazov.mbp1.view.MainView;
 
+import jakarta.annotation.security.RolesAllowed;
+
 @Route(value = "/admin/nomenclature", layout = MainView.class)
+@RolesAllowed("ADMIN")
 public class NomenclatureView extends VerticalLayout {
 
     public NomenclatureView() {

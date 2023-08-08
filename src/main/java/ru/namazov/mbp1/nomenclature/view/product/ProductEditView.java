@@ -14,12 +14,15 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-import ru.namazov.mbp1.ViewConstructor;
+import ru.namazov.mbp1.base.ViewConstructor;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
 import ru.namazov.mbp1.view.MainView;
 
+import jakarta.annotation.security.RolesAllowed;
+
 @Route(value = "/admin/nomenclature/products/edit", layout = MainView.class)
+@RolesAllowed("ADMIN")
 public class ProductEditView extends VerticalLayout implements HasUrlParameter<Long>, ViewConstructor {
 
     private Product product;

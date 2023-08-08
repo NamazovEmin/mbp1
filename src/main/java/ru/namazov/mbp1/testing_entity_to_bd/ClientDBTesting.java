@@ -17,61 +17,102 @@ package ru.namazov.mbp1.testing_entity_to_bd;
 
 import org.springframework.stereotype.Component;
 
-import ru.namazov.mbp1.model.Client;
-import ru.namazov.mbp1.model.Product;
+import ru.namazov.mbp1.client.model.Client;
+import ru.namazov.mbp1.nomenclature.model.Product;
+import ru.namazov.mbp1.nomenclature.repository.ProductRepository;
 import ru.namazov.mbp1.repository.ClientRepository;
-import ru.namazov.mbp1.repository.ProductRepository;
+import ru.namazov.mbp1.repository.StorageProductRepository;
+import ru.namazov.mbp1.storage.model.Storage;
+import ru.namazov.mbp1.storage.model.StorageProduct;
+import ru.namazov.mbp1.storage.repository.StorageRepository;
 
 @Component
 public class ClientDBTesting {
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
+    private final StorageRepository storageRepository;
+    private final StorageProductRepository storageProductRepository;
 
-    public ClientDBTesting(ClientRepository clientRepository, ProductRepository productRepository) {
+    public ClientDBTesting(ClientRepository clientRepository, ProductRepository productRepository,
+            StorageRepository storageRepository, StorageProductRepository storageProductRepository) {
         this.clientRepository = clientRepository;
         this.productRepository = productRepository;
-        makeClient();
+        this.storageRepository = storageRepository;
+        this.storageProductRepository = storageProductRepository;
+//        makeClient();
         makeProduct();
     }
 
     private void makeProduct() {
-        Product product = new Product();
-        product.setName("Мясо Оленины");
-        product.setCount(20L);
-        product.setMeasurement("кг");
-        product.setDescription("Замороженное");
-        productRepository.save(product);
-
         Product product1 = new Product();
         product1.setName("Мясо Оленины");
-        product1.setCount(10L);
         product1.setMeasurement("кг");
-        product1.setDescription("Охлажденное");
+        product1.setDescription("Замороженное");
         productRepository.save(product1);
 
         Product product2 = new Product();
-        product2.setName("Мясо Свиное");
-        product2.setCount(10L);
+        product2.setName("Мясо Оленины");
         product2.setMeasurement("кг");
         product2.setDescription("Охлажденное");
         productRepository.save(product2);
 
         Product product3 = new Product();
-        product3.setName("Мясо Баранье");
-        product3.setCount(25L);
+        product3.setName("Мясо Свиное");
         product3.setMeasurement("кг");
         product3.setDescription("Охлажденное");
         productRepository.save(product3);
 
         Product product4 = new Product();
-        product4.setName("Говяжий Стейк");
-        product4.setCount(7L);
-        product4.setMeasurement("шт");
-        product4.setDescription("Стейк с жирком на кости 200-250г");
+        product4.setName("Мясо Баранье");
+        product4.setMeasurement("кг");
+        product4.setDescription("Охлажденное");
         productRepository.save(product4);
-    }
 
-    private void makeClient() {
+        Product product5 = new Product();
+        product5.setName("Говяжий Стейк");
+        product5.setMeasurement("шт");
+        product5.setDescription("Стейк с жирком на кости 200-250г");
+        productRepository.save(product5);
+
+
+
+        Storage storage = new Storage();
+        storage.setName("на Волгоградке");
+        storageRepository.save(storage);
+
+        StorageProduct storageProduct1 = new StorageProduct();
+        storageProduct1.setProduct(product1);
+        storageProduct1.setCount(10L);
+        storageProduct1.setStorage(storage);
+        storageProductRepository.save(storageProduct1);
+
+        StorageProduct storageProduct2 = new StorageProduct();
+        storageProduct2.setProduct(product2);
+        storageProduct2.setCount(15L);
+        storageProduct2.setStorage(storage);
+        storageProductRepository.save(storageProduct2);
+
+        StorageProduct storageProduct3 = new StorageProduct();
+        storageProduct3.setProduct(product3);
+        storageProduct3.setCount(20L);
+        storageProduct3.setStorage(storage);
+        storageProductRepository.save(storageProduct3);
+
+        StorageProduct storageProduct4 = new StorageProduct();
+        storageProduct4.setProduct(product4);
+        storageProduct4.setCount(5L);
+        storageProduct4.setStorage(storage);
+        storageProductRepository.save(storageProduct4);
+
+        StorageProduct storageProduct5 = new StorageProduct();
+        storageProduct5.setProduct(product5);
+        storageProduct5.setCount(40L);
+        storageProduct5.setStorage(storage);
+        storageProductRepository.save(storageProduct5);
+
+
+
+
         Client client = new Client();
         client.setName("ООО РОМАШКА");
         client.setTelNumber("8-926-946-82-87");
@@ -197,5 +238,14 @@ public class ClientDBTesting {
         client17.setContactMen("Егор");
         client17.setEmail("alpotehinj@gmail.com");
         clientRepository.save(client17);
+
+//        Order order = new Order();
+//        order.setDate(new Date(2023,8, 8));
+//        order.setTimeFrom(10L);
+//        order.setTimeTo(18L);
+//        order.setAddress("Москва, Проспект мира, д.22");
+//        order.setContact("Александр");
+//        order.setTelNumber("8-923-123-43-92");
     }
+
 }

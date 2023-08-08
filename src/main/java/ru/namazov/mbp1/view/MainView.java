@@ -19,9 +19,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
-import ru.namazov.mbp1.client.view.ClientView;
+import ru.namazov.mbp1.client.view.ClientViewAll;
 import ru.namazov.mbp1.login.presenter.LoginPresenter;
-import ru.namazov.mbp1.storege.view.StoragesView;
+import ru.namazov.mbp1.nomenclature.view.NomenclatureView;
+import ru.namazov.mbp1.storage.view.StorageViewAll;
 
 import jakarta.annotation.security.PermitAll;
 
@@ -34,12 +35,11 @@ public class MainView extends AppLayout {
 
     public MainView(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
-//        if (loginPresenter.getRole()) {
-//            initUser();
-//        } else {
-//            initAdmin();
-//        }
-        initAdmin();
+        if (loginPresenter.getRole()) {
+            initAdmin();
+        } else {
+            initUser();
+        }
         createHeader();
         createDrawer();
         createMain();
@@ -72,14 +72,18 @@ public class MainView extends AppLayout {
     }
 
     private void initAdmin() {
-        RouterLink clientsLink = new RouterLink("Клиенты", ClientView.class);
-        RouterLink orderLink = new RouterLink("Склад", StoragesView.class);
+        RouterLink clientsLink = new RouterLink("Клиенты", ClientViewAll.class);
+        RouterLink orderLink = new RouterLink("Склад", StorageViewAll.class);
+        RouterLink nomenclatureViewLink = new RouterLink("Номенклатура", NomenclatureView.class);
+
+
         routerLinkList.add(clientsLink);
         routerLinkList.add(orderLink);
+        routerLinkList.add(nomenclatureViewLink);
     }
 
     private void initUser() {
-        RouterLink clientsLink = new RouterLink("Клиенты", ClientView.class);
+        RouterLink clientsLink = new RouterLink("Клиенты", ClientViewAll.class);
         routerLinkList.add(clientsLink);
 
     }

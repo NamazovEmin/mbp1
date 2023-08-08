@@ -32,7 +32,7 @@ public class SecurityConfig extends VaadinWebSecurity {
         return new InMemoryUserDetailsManager(
                 User.withUsername("marcus")
                         .password("{noop}marcus")
-                        .roles("USER").build()
+                        .roles("ADMIN").build()
         );
     }
 }

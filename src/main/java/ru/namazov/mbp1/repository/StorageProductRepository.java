@@ -8,8 +8,9 @@ package ru.namazov.mbp1.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ru.namazov.mbp1.client.model.Client;
+import ru.namazov.mbp1.storage.model.StorageProduct;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface StorageProductRepository extends JpaRepository<StorageProduct, Long> {
+
 }

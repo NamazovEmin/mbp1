@@ -13,12 +13,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import ru.namazov.mbp1.ViewConstructor;
+import ru.namazov.mbp1.base.ViewConstructor;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
 import ru.namazov.mbp1.view.MainView;
 
+import jakarta.annotation.security.RolesAllowed;
+
 @Route(value = "/admin/nomenclature/products", layout = MainView.class)
+@RolesAllowed("ADMIN")
 public class ProductView extends VerticalLayout implements ViewConstructor {
 
     private final ProductPresenter productPresenter;

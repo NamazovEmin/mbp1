@@ -7,9 +7,9 @@ package ru.namazov.mbp1.nomenclature.model;
 
 import java.util.List;
 
-import ru.namazov.mbp1.model.BaseEntity;
-import ru.namazov.mbp1.model.Order;
-import ru.namazov.mbp1.model.StorageProduct;
+import ru.namazov.mbp1.Order;
+import ru.namazov.mbp1.base.model.BaseEntity;
+import ru.namazov.mbp1.storage.model.StorageProduct;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
