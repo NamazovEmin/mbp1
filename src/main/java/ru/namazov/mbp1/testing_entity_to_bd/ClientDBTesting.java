@@ -18,9 +18,9 @@ package ru.namazov.mbp1.testing_entity_to_bd;
 import org.springframework.stereotype.Component;
 
 import ru.namazov.mbp1.client.model.Client;
+import ru.namazov.mbp1.client.reoisitory.ClientRepository;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.repository.ProductRepository;
-import ru.namazov.mbp1.repository.ClientRepository;
 import ru.namazov.mbp1.repository.StorageProductRepository;
 import ru.namazov.mbp1.storage.model.Storage;
 import ru.namazov.mbp1.storage.model.StorageProduct;

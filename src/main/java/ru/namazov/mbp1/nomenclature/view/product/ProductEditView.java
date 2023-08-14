@@ -15,9 +15,9 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.base.ViewConstructor;
+import ru.namazov.mbp1.base.view.MainView;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
-import ru.namazov.mbp1.view.MainView;
 
 import jakarta.annotation.security.RolesAllowed;
 

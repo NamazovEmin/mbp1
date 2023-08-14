@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import ru.namazov.mbp1.client.model.Client;
-import ru.namazov.mbp1.repository.ClientRepository;
+import ru.namazov.mbp1.client.reoisitory.ClientRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

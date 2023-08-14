@@ -3,7 +3,12 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.view;
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+package ru.namazov.mbp1.base.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +55,7 @@ public class MainView extends AppLayout {
     }
 
     private void createHeader() {
-        H1 logo = new H1("Namazov Emin CRM for meat business");
+        H1 logo = new H1("CRM for meat business");
         logo.addClassNames(
                 LumoUtility.FontSize.LARGE,
                 LumoUtility.Margin.MEDIUM);

@@ -5,16 +5,12 @@
 
 package ru.namazov.mbp1.nomenclature.model;
 
-import java.util.List;
-
-import ru.namazov.mbp1.Order;
 import ru.namazov.mbp1.base.model.BaseEntity;
+import ru.namazov.mbp1.order.entity.CartProduct;
 import ru.namazov.mbp1.storage.model.StorageProduct;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -37,9 +33,9 @@ public class Product extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-    private List<Order> orders;
-
     @OneToOne(mappedBy = "product")
     private StorageProduct storageProduct;
+
+    @OneToOne(mappedBy = "product")
+    private CartProduct cartProduct;
 }

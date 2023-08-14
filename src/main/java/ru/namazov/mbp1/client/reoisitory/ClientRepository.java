@@ -3,7 +3,7 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1.repository;
+package ru.namazov.mbp1.client.reoisitory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

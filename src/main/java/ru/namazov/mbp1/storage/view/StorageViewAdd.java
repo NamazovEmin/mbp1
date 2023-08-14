@@ -13,10 +13,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.base.ViewConstructor;
+import ru.namazov.mbp1.base.view.MainView;
 import ru.namazov.mbp1.client.view.ClientViewAll;
 import ru.namazov.mbp1.storage.model.Storage;
 import ru.namazov.mbp1.storage.presenter.StoragePresenter;
-import ru.namazov.mbp1.view.MainView;
 
 import jakarta.annotation.security.RolesAllowed;
 
