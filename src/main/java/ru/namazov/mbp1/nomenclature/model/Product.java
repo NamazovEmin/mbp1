@@ -6,7 +6,6 @@
 package ru.namazov.mbp1.nomenclature.model;
 
 import ru.namazov.mbp1.base.model.BaseEntity;
-import ru.namazov.mbp1.order.entity.CartProduct;
 import ru.namazov.mbp1.storage.model.StorageProduct;
 
 import jakarta.persistence.Column;
@@ -35,7 +34,4 @@ public class Product extends BaseEntity {
 
     @OneToOne(mappedBy = "product")
     private StorageProduct storageProduct;
-
-    @OneToOne(mappedBy = "product")
-    private CartProduct cartProduct;
 }

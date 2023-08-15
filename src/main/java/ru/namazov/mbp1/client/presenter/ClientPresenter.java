@@ -33,4 +33,8 @@ public class ClientPresenter {
     public Client findById(Long id) {
         return clientRepository.findById(id).orElseThrow();
     }
+
+    public Client findByName(String name) {
+        return clientRepository.findByName(name).orElseThrow();
+    }
 }

@@ -27,6 +27,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import ru.namazov.mbp1.client.view.ClientViewAll;
 import ru.namazov.mbp1.login.presenter.LoginPresenter;
 import ru.namazov.mbp1.nomenclature.view.NomenclatureView;
+import ru.namazov.mbp1.order.view.OrderViewAll;
 import ru.namazov.mbp1.storage.view.StorageViewAll;
 
 import jakarta.annotation.security.PermitAll;
@@ -77,11 +78,12 @@ public class MainView extends AppLayout {
     }
 
     private void initAdmin() {
+        RouterLink orderViewLink = new RouterLink("Заказы", OrderViewAll.class);
         RouterLink clientsLink = new RouterLink("Клиенты", ClientViewAll.class);
         RouterLink orderLink = new RouterLink("Склад", StorageViewAll.class);
         RouterLink nomenclatureViewLink = new RouterLink("Номенклатура", NomenclatureView.class);
 
-
+        routerLinkList.add(orderViewLink);
         routerLinkList.add(clientsLink);
         routerLinkList.add(orderLink);
         routerLinkList.add(nomenclatureViewLink);

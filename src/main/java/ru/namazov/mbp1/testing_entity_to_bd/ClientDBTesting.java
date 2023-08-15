@@ -15,12 +15,19 @@
 
 package ru.namazov.mbp1.testing_entity_to_bd;
 
+import java.time.LocalTime;
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 import ru.namazov.mbp1.client.model.Client;
 import ru.namazov.mbp1.client.reoisitory.ClientRepository;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.repository.ProductRepository;
+import ru.namazov.mbp1.order.entity.Order;
+import ru.namazov.mbp1.order.entity.OrderProduct;
+import ru.namazov.mbp1.order.repository.OrderProductRepository;
+import ru.namazov.mbp1.order.repository.OrderRepository;
 import ru.namazov.mbp1.repository.StorageProductRepository;
 import ru.namazov.mbp1.storage.model.Storage;
 import ru.namazov.mbp1.storage.model.StorageProduct;
@@ -32,13 +39,18 @@ public class ClientDBTesting {
     private final ProductRepository productRepository;
     private final StorageRepository storageRepository;
     private final StorageProductRepository storageProductRepository;
+    private final OrderRepository orderRepository;
+    private final OrderProductRepository orderProductRepository;
 
     public ClientDBTesting(ClientRepository clientRepository, ProductRepository productRepository,
-            StorageRepository storageRepository, StorageProductRepository storageProductRepository) {
+            StorageRepository storageRepository, StorageProductRepository storageProductRepository,
+            OrderRepository orderRepository, OrderProductRepository orderProductRepository) {
         this.clientRepository = clientRepository;
         this.productRepository = productRepository;
         this.storageRepository = storageRepository;
         this.storageProductRepository = storageProductRepository;
+        this.orderRepository = orderRepository;
+        this.orderProductRepository = orderProductRepository;
 //        makeClient();
         makeProduct();
     }
@@ -183,69 +195,37 @@ public class ClientDBTesting {
         client9.setEmail("alpotehinj@gmail.com");
         clientRepository.save(client9);
 
-        Client client10 = new Client();
-        client10.setName("ООО МЕРКУРИЙ");
-        client10.setTelNumber("8-915-920-77-93");
-        client10.setContactMen("Егор");
-        client10.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client10);
 
-        Client client11 = new Client();
-        client11.setName("ООО МЕРКУРИЙ");
-        client11.setTelNumber("8-915-920-77-93");
-        client11.setContactMen("Егор");
-        client11.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client11);
 
-        Client client12 = new Client();
-        client12.setName("ООО МЕРКУРИЙ");
-        client12.setTelNumber("8-915-920-77-93");
-        client12.setContactMen("Егор");
-        client12.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client12);
 
-        Client client13 = new Client();
-        client13.setName("ООО МЕРКУРИЙ");
-        client13.setTelNumber("8-915-920-77-93");
-        client13.setContactMen("Егор");
-        client13.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client13);
+        Order order1 = new Order();
+        order1.setDate(new Date(2023,8, 8));
+        order1.setTimeFrom(LocalTime.of(10, 30));
+        order1.setTimeTo(LocalTime.of(20, 30));
+        order1.setAddress("Москва, Проспект мира, д.22");
+        order1.setContact("Александр");
+        order1.setTelNumber("8-923-123-43-92");
+        order1.setClient(client);
 
-        Client client14 = new Client();
-        client14.setName("ООО МЕРКУРИЙ");
-        client14.setTelNumber("8-915-920-77-93");
-        client14.setContactMen("Егор");
-        client14.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client14);
+        orderRepository.save(order1);
 
-        Client client15 = new Client();
-        client15.setName("ООО МЕРКУРИЙ");
-        client15.setTelNumber("8-915-920-77-93");
-        client15.setContactMen("Егор");
-        client15.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client15);
+        OrderProduct orderProduct1 = new OrderProduct();
+        orderProduct1.setProduct(product1);
+        orderProduct1.setCount(5L);
+        orderProduct1.setOrder(order1);
 
-        Client client16 = new Client();
-        client16.setName("ООО МЕРКУРИЙ");
-        client16.setTelNumber("8-915-920-77-93");
-        client16.setContactMen("Егор");
-        client16.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client16);
+        OrderProduct orderProduct2 = new OrderProduct();
+        orderProduct2.setProduct(product2);
+        orderProduct2.setCount(5L);
+        orderProduct2.setOrder(order1);
 
-        Client client17 = new Client();
-        client17.setName("ООО МЕРКУРИЙ");
-        client17.setTelNumber("8-915-920-77-93");
-        client17.setContactMen("Егор");
-        client17.setEmail("alpotehinj@gmail.com");
-        clientRepository.save(client17);
+        OrderProduct orderProduct3 = new OrderProduct();
+        orderProduct3.setProduct(product3);
+        orderProduct3.setCount(5L);
+        orderProduct3.setOrder(order1);
 
-//        Order order = new Order();
-//        order.setDate(new Date(2023,8, 8));
-//        order.setTimeFrom(10L);
-//        order.setTimeTo(18L);
-//        order.setAddress("Москва, Проспект мира, д.22");
-//        order.setContact("Александр");
-//        order.setTelNumber("8-923-123-43-92");
+        orderProductRepository.save(orderProduct1);
+        orderProductRepository.save(orderProduct3);
+        orderProductRepository.save(orderProduct3);
     }
-
 }

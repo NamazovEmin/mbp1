@@ -8,23 +8,23 @@
  * http://www.topsbi.ru
  */
 
-package ru.namazov.mbp1;
+package ru.namazov.mbp1.order.entity;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
 import ru.namazov.mbp1.base.model.BaseEntity;
 import ru.namazov.mbp1.client.model.Client;
-import ru.namazov.mbp1.nomenclature.model.Product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,31 +36,38 @@ import lombok.Setter;
 @Setter
 public class Order extends BaseEntity {
 
+    @NotNull
     @Column(name = "date")
     private Date date;
 
+    @NotNull
     @Column(name = "time_from")
-    private Long timeFrom;
+    private LocalTime timeFrom;
 
+    @NotNull
     @Column(name = "time_to")
-    private Long timeTo;
+    private LocalTime timeTo;
 
+    @NotEmpty
+    @NotNull
     @Column(name = "address")
     private String address;
 
+    @NotEmpty
+    @NotNull
     @Column(name = "contact")
     private String contact;
 
+    @NotEmpty
+    @NotNull
     @Column(name = "telnumber")
     private String telNumber;
 
+    @NotNull
     @ManyToOne()
     @JoinColumn(name = "client_id", nullable = false, updatable = false)
     private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "orders_products",
-            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
-    private List<Product> products;
+    @OneToMany(mappedBy = "order")
+    private List<OrderProduct> productList;
 }

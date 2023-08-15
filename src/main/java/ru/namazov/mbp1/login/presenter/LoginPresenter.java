@@ -1,4 +1,14 @@
 /*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
  * Copyright (c) . Namazov Emin. All rights reserved.
  */
 
