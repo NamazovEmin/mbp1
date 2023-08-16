@@ -80,13 +80,11 @@ public class OrderViewAdd extends VerticalLayout implements ViewConstructor {
         date.setValue(LocalDate.now().plusDays(1));
         date.setErrorMessage("Выберите дату доставки");
 
-
         timeFrom = new TimePicker();
         timeFrom.setLabel("C ");
         timeFrom.setStep(Duration.ofMinutes(30));
         timeFrom.setValue(LocalTime.of(10, 0));
         timeFrom.setErrorMessage("Выберите интервал доставки");
-
 
         timeTo = new TimePicker();
         timeTo.setLabel("По ");
@@ -135,8 +133,8 @@ public class OrderViewAdd extends VerticalLayout implements ViewConstructor {
     private Button saveButton() {
         Button saveButton = new Button("Сохранить");
         saveButton.addSingleClickListener(click -> {
-            Order order = new Order();
             if (validation.isValid(components)) {
+                Order order = new Order();
                 order.setDate(Date.from(Instant.from(date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())));
                 order.setClient(client.getValue());
                 order.setTimeFrom(timeFrom.getValue());
