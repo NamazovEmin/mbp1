@@ -82,11 +82,13 @@ public class MainView extends AppLayout {
         RouterLink clientsLink = new RouterLink("Клиенты", ClientViewAll.class);
         RouterLink orderLink = new RouterLink("Склад", StorageViewAll.class);
         RouterLink nomenclatureViewLink = new RouterLink("Номенклатура", NomenclatureView.class);
+        RouterLink bookkeepingViewLink = new RouterLink("Бухгалтерия", NomenclatureView.class);
 
         routerLinkList.add(orderViewLink);
         routerLinkList.add(clientsLink);
         routerLinkList.add(orderLink);
         routerLinkList.add(nomenclatureViewLink);
+        routerLinkList.add(bookkeepingViewLink);
     }
 
     private void initUser() {

@@ -100,6 +100,23 @@ public class OrderView extends VerticalLayout implements HasUrlParameter<Long>, 
         add(addressField);
         add(contactMenField);
         add(telNumberField);
+        add(makeProductMenu());
+    }
+
+    private VerticalLayout makeProductMenu() {
+        VerticalLayout productMenu = new VerticalLayout();
+        order.getProductList().forEach(prod -> {
+            TextField product =  new TextField("Название");
+            product.setValue(prod.getProduct().getName());
+            product.setReadOnly(true);
+
+            TextField count =  new TextField("Кол-во");
+            count.setValue(prod.getCount().toString());
+            count.setReadOnly(true);
+
+            productMenu.add(new HorizontalLayout(product, count));
+        });
+        return productMenu;
     }
 
     @Override

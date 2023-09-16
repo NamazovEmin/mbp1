@@ -19,6 +19,7 @@ import ru.namazov.mbp1.client.model.Client;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -36,38 +37,38 @@ import lombok.Setter;
 @Setter
 public class Order extends BaseEntity {
 
-    @NotNull
+    @NotNull(message = "")
     @Column(name = "date")
     private Date date;
 
-    @NotNull
+    @NotNull(message = "")
     @Column(name = "time_from")
     private LocalTime timeFrom;
 
-    @NotNull
+    @NotNull(message = "")
     @Column(name = "time_to")
     private LocalTime timeTo;
 
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "")
+    @NotNull(message = "")
     @Column(name = "address")
     private String address;
 
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "Введите имя получателя")
+    @NotNull(message = "Введите имя получателя")
     @Column(name = "contact")
     private String contact;
 
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "")
+    @NotNull(message = "")
     @Column(name = "telnumber")
     private String telNumber;
 
-    @NotNull
+    @NotNull(message = "")
     @ManyToOne()
     @JoinColumn(name = "client_id", nullable = false, updatable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderProduct> productList;
 }

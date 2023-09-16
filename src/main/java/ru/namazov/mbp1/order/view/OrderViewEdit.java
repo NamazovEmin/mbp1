@@ -5,18 +5,34 @@
 
 package ru.namazov.mbp1.order.view;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.timepicker.TimePicker;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
 import ru.namazov.mbp1.base.ViewConstructor;
 import ru.namazov.mbp1.base.view.MainView;
+import ru.namazov.mbp1.client.model.Client;
 import ru.namazov.mbp1.client.presenter.ClientPresenter;
+import ru.namazov.mbp1.nomenclature.model.Product;
+import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
 import ru.namazov.mbp1.order.entity.Order;
 import ru.namazov.mbp1.order.presenter.OrderPresenter;
 
@@ -29,16 +45,22 @@ public class OrderViewEdit extends VerticalLayout implements HasUrlParameter<Lon
     private Order order;
     private final OrderPresenter orderPresenter;
     private final ClientPresenter clientPresenter;
-    private TextField clientField;
-    private TextField timeFromField;
-    private TextField timeToField;
-    private TextField addressField;
-    private TextField contactMenField;
-    private TextField telNumberField;
+    private final ProductPresenter productPresenter;
+    private DatePicker date;
+    private ComboBox<Client> client;
+    private TimePicker timeFrom;
+    private TimePicker timeTo;
+    private TextField address;
+    private TextField contact;
+    private TextField telNumber;
+    private Binder<Order> binder = new BeanValidationBinder<>(Order.class);
+    private List<? extends Component> components;
 
-    public OrderViewEdit(OrderPresenter orderPresenter, ClientPresenter clientPresenter) {
+    public OrderViewEdit(OrderPresenter orderPresenter, ClientPresenter clientPresenter,
+            ProductPresenter productPresenter) {
         this.orderPresenter = orderPresenter;
         this.clientPresenter = clientPresenter;
+        this.productPresenter = productPresenter;
     }
 
     @Override
@@ -61,44 +83,65 @@ public class OrderViewEdit extends VerticalLayout implements HasUrlParameter<Lon
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         add(horizontalLayout);
 
-        clientField = new TextField();
-        clientField.setLabel("Название Фирмы");
-        clientField.setSizeFull();
-        clientField.setValue(order.getClient().getName());
-        clientField.setReadOnly(true);
+        client = new ComboBox<>("Название Фирмы");
+        client.setItems(clientPresenter.findAll());
+        client.setItemLabelGenerator(Client::getName);
+        client.setErrorMessage("Выберите название фирмы из списка");
+        client.setSizeFull();
+        client.setValue(order.getClient());
+        client.setReadOnly(true);
 
-        timeFromField = new TextField();
-        timeFromField.setLabel("c ");
-        timeFromField.setSizeFull();
-        timeFromField.setValue(order.getTimeFrom().toString());
+        date = new DatePicker("День доставки");
+        date.setErrorMessage("Выберите дату доставки");
+        client.setSizeFull();
+        date.setValue(LocalDate.ofInstant(order.getDate().toInstant(), ZoneId.systemDefault()));
 
-        timeToField = new TextField();
-        timeToField.setLabel("по");
-        timeToField.setSizeFull();
-        timeToField.setValue(order.getTimeTo().toString());
+        timeFrom = new TimePicker("C ");
+        timeFrom.setStep(Duration.ofMinutes(30));
+        timeFrom.setErrorMessage("Выберите интервал доставки");
+        timeFrom.setSizeFull();
+        timeFrom.setValue(order.getTimeFrom());
 
-        addressField = new TextField();
-        addressField.setLabel("Адрес");
-        addressField.setSizeFull();
-        addressField.setValue(order.getAddress());
+        timeTo = new TimePicker("По ");
+        timeTo.setStep(Duration.ofMinutes(30));
+        timeTo.setErrorMessage("Выберите интервал доставки");
+        timeTo.setSizeFull();
+        timeTo.setValue(order.getTimeTo());
+
+        address = new TextField("Адрес");
+        address.setErrorMessage("Введите Адрес доставки");
+        address.setSizeFull();
+        address.setValue(order.getAddress());
+
+        contact = new TextField("Контактное лицо");
+        contact.setSizeFull();
+        contact.setErrorMessage("Введите имя Получателя");
+        contact.setValue(order.getContact());
 
 
-        contactMenField = new TextField();
-        contactMenField.setLabel("Контактное лицо");
-        contactMenField.setSizeFull();
-        contactMenField.setValue(order.getContact());
+        telNumber = new TextField("Телефон");
+        telNumber.setErrorMessage("Введите телефон получателя");
+        telNumber.setSizeFull();
+        telNumber.setValue(order.getTelNumber());
 
-        telNumberField = new TextField();
-        telNumberField.setLabel("Телефон");
-        telNumberField.setSizeFull();
-        telNumberField.setValue(order.getTelNumber());
+        add(client);
+        add(date);
+        add(timeFrom);
+        add(timeTo);
+        add(address);
+        add(contact);
+        add(telNumber);
+        add(makeProductMenu());
+        binder.bindInstanceFields(this);
 
-        add(clientField);
-        add(timeFromField);
-        add(timeToField);
-        add(addressField);
-        add(contactMenField);
-        add(telNumberField);
+        components = List.of(
+                client,
+                date,
+                timeFrom,
+                timeTo,
+                address,
+                contact,
+                telNumber);
     }
 
     @Override
@@ -106,16 +149,36 @@ public class OrderViewEdit extends VerticalLayout implements HasUrlParameter<Lon
         add(new HorizontalLayout(backButton(), saveButton()));
     }
 
+    private VerticalLayout makeProductMenu() {
+        VerticalLayout productMenu = new VerticalLayout();
+        order.getProductList().forEach(prod -> {
+            ComboBox<Product> product = new ComboBox<>("Название Продукта");
+            product.setItems(productPresenter.findAll());
+            product.setItemLabelGenerator(Product::getName);
+            product.setValue(prod.getProduct());
+            product.setErrorMessage("Выберите название продукта из списка");
+
+            TextField count = new TextField("шт");
+            count.setValue(prod.getCount().toString());
+            count.setErrorMessage("Введите кол-во товара");
+
+            productMenu.add(new HorizontalLayout(product, count));
+        });
+        return productMenu;
+    }
+
     private Button saveButton() {
         Button saveButton = new Button("Сохранить");
         saveButton.addSingleClickListener(click -> {
-//            order.setTimeFrom(Long.parseLong(timeFromField.getValue()));
-//            order.setTimeTo(Long.parseLong(timeToField.getValue()));
-//            order.setAddress(addressField.getValue());
-//            order.setContact(contactMenField.getValue());
-//            order.setTelNumber(telNumberField.getValue());
-//            orderPresenter.save(order);
-//            UI.getCurrent().navigate(OrderViewAll.class);
+            order.setDate(Date.from(Instant.from(date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())));
+            order.setClient(client.getValue());
+            order.setTimeFrom(timeFrom.getValue());
+            order.setTimeTo(timeTo.getValue());
+            order.setAddress(address.getValue());
+            order.setContact(contact.getValue());
+            order.setTelNumber(telNumber.getValue());
+            orderPresenter.save(order);
+            UI.getCurrent().navigate(OrderViewAll.class);
         });
 
         return saveButton;

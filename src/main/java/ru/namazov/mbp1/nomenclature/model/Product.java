@@ -6,11 +6,9 @@
 package ru.namazov.mbp1.nomenclature.model;
 
 import ru.namazov.mbp1.base.model.BaseEntity;
-import ru.namazov.mbp1.storage.model.StorageProduct;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +29,4 @@ public class Product extends BaseEntity {
 
     @Column(name = "description")
     private String description;
-
-    @OneToOne(mappedBy = "product")
-    private StorageProduct storageProduct;
 }
