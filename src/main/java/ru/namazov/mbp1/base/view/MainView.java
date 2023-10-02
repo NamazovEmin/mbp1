@@ -24,6 +24,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
+import ru.namazov.mbp1.bookkeeping.view.BookkeepingView;
 import ru.namazov.mbp1.client.view.ClientViewAll;
 import ru.namazov.mbp1.login.presenter.LoginPresenter;
 import ru.namazov.mbp1.nomenclature.view.NomenclatureView;
@@ -82,7 +83,7 @@ public class MainView extends AppLayout {
         RouterLink clientsLink = new RouterLink("Клиенты", ClientViewAll.class);
         RouterLink orderLink = new RouterLink("Склад", StorageViewAll.class);
         RouterLink nomenclatureViewLink = new RouterLink("Номенклатура", NomenclatureView.class);
-        RouterLink bookkeepingViewLink = new RouterLink("Бухгалтерия", NomenclatureView.class);
+        RouterLink bookkeepingViewLink = new RouterLink("Бухгалтерия", BookkeepingView.class);
 
         routerLinkList.add(orderViewLink);
         routerLinkList.add(clientsLink);

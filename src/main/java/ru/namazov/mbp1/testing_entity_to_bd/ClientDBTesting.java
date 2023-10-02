@@ -20,6 +20,10 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import ru.namazov.mbp1.bookkeeping.model.Invoice;
+import ru.namazov.mbp1.bookkeeping.model.InvoiceProduct;
+import ru.namazov.mbp1.bookkeeping.repository.InvoiceProductRepository;
+import ru.namazov.mbp1.bookkeeping.repository.InvoiceRepository;
 import ru.namazov.mbp1.client.model.Client;
 import ru.namazov.mbp1.client.reoisitory.ClientRepository;
 import ru.namazov.mbp1.nomenclature.model.Product;
@@ -41,17 +45,21 @@ public class ClientDBTesting {
     private final StorageProductRepository storageProductRepository;
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
+    private final InvoiceRepository invoiceRepository;
+    private final InvoiceProductRepository invoiceProductRepository;
 
     public ClientDBTesting(ClientRepository clientRepository, ProductRepository productRepository,
             StorageRepository storageRepository, StorageProductRepository storageProductRepository,
-            OrderRepository orderRepository, OrderProductRepository orderProductRepository) {
+            OrderRepository orderRepository, OrderProductRepository orderProductRepository,
+            InvoiceRepository invoiceRepository, InvoiceProductRepository invoiceProductRepository) {
         this.clientRepository = clientRepository;
         this.productRepository = productRepository;
         this.storageRepository = storageRepository;
         this.storageProductRepository = storageProductRepository;
         this.orderRepository = orderRepository;
         this.orderProductRepository = orderProductRepository;
-//        makeClient();
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceProductRepository = invoiceProductRepository;
         makeProduct();
     }
 
@@ -227,5 +235,33 @@ public class ClientDBTesting {
         orderProductRepository.save(orderProduct1);
         orderProductRepository.save(orderProduct3);
         orderProductRepository.save(orderProduct3);
+
+
+
+        Invoice invoice = new Invoice();
+        invoice.setNumber(456L);
+        invoice.setDate(new Date(2023,9,17));
+        invoice.setInStock(false);
+
+        invoiceRepository.save(invoice);
+
+        InvoiceProduct invoiceProduct1 = new InvoiceProduct();
+        invoiceProduct1.setProduct(product1);
+        invoiceProduct1.setCount(3L);
+        invoiceProduct1.setInvoice(invoice);
+
+        InvoiceProduct invoiceProduct2 = new InvoiceProduct();
+        invoiceProduct2.setProduct(product2);
+        invoiceProduct2.setCount(5L);
+        invoiceProduct2.setInvoice(invoice);
+
+        InvoiceProduct invoiceProduct3 = new InvoiceProduct();
+        invoiceProduct3.setProduct(product3);
+        invoiceProduct3.setCount(7L);
+        invoiceProduct3.setInvoice(invoice);
+
+        invoiceProductRepository.save(invoiceProduct1);
+        invoiceProductRepository.save(invoiceProduct2);
+        invoiceProductRepository.save(invoiceProduct3);
     }
 }
