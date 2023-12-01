@@ -3,6 +3,16 @@
  * http://www.topsbi.ru
  */
 
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
 package ru.namazov.mbp1.bookkeeping.view;
 
 import com.vaadin.flow.component.UI;
@@ -47,7 +57,9 @@ public class InvoiceViewAll extends VerticalLayout implements ViewConstructor {
     public void main() {
         table.addColumn(Invoice::getNumber).setHeader("Номер накладной").setResizable(true);
         table.addColumn(Invoice::getDate).setHeader("Дата").setResizable(true);
-        table.addColumn(Invoice::getInvoiceProductList).setHeader("Продукты").setResizable(true);
+        table.addColumn(Invoice::isInStock).setHeader("Документ получен?").setResizable(true);
+        table.addColumn(Invoice::isReceived).setHeader("Товар получен?").setResizable(true);
+        table.addColumn(Invoice::isPaid).setHeader("Накладная оплачена?").setResizable(true);
         table.setItems(invoicePresenter.findAll());
         add(table);
     }

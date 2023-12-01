@@ -3,6 +3,16 @@
  * http://www.topsbi.ru
  */
 
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
 package ru.namazov.mbp1.bookkeeping.view;
 
 import java.time.Instant;
@@ -35,7 +45,6 @@ import ru.namazov.mbp1.bookkeeping.presenter.InvoiceProductPresenter;
 import ru.namazov.mbp1.client.presenter.ClientPresenter;
 import ru.namazov.mbp1.nomenclature.model.Product;
 import ru.namazov.mbp1.nomenclature.presenter.ProductPresenter;
-import ru.namazov.mbp1.order.view.OrderViewAll;
 import ru.namazov.mbp1.validation.Validation;
 
 import jakarta.annotation.security.PermitAll;
@@ -53,8 +62,10 @@ public class InvoiceViewAdd extends VerticalLayout implements ViewConstructor {
     private DatePicker date;
     private TextField number;
     private ComboBox<Product> product;
-    private TextField isInStock;
+    private ComboBox<String> isInStock;
+    private ComboBox<String> isPaid;
     private TextField count;
+    private ComboBox<String> isReceived;
     private List<? extends Component> components;
     private Binder<Invoice> invoiceBinder = new BeanValidationBinder<>(Invoice.class);
     HorizontalLayout horizontalLayout;
@@ -85,9 +96,25 @@ public class InvoiceViewAdd extends VerticalLayout implements ViewConstructor {
         date.setValue(LocalDate.now().plusDays(1));
         date.setErrorMessage("Выберите дату формирования накладной");
 
-        isInStock = new TextField("Документы в наличии?");
+        isInStock = new ComboBox<>("Документы в наличии?");
         isInStock.setSizeFull();
-        isInStock.setErrorMessage("Введите Адрес доставки");
+        isInStock.setItems("Да", "Нет");
+
+//        isPaid = new TextField();
+//        isPaid.setLabel("Накладная оплачена?");
+//        isPaid.setSizeFull();
+
+        isPaid = new ComboBox<>();
+        isPaid.setLabel("Накладная оплачена?");
+        isPaid.setSizeFull();
+        isPaid.setItems("Да", "Нет");
+
+        isReceived = new ComboBox<>();
+        isReceived.setLabel("Товар получен?");
+        isReceived.setSizeFull();
+        isReceived.setItems("Да", "Нет");
+
+
 
         product = new ComboBox<>("Название Продукта");
         product.setItems(productPresenter.findAll());
@@ -110,6 +137,8 @@ public class InvoiceViewAdd extends VerticalLayout implements ViewConstructor {
         add(number);
         add(date);
         add(isInStock);
+        add(isPaid);
+        add(isReceived);
         add(productMenu);
         productMenu.add(new HorizontalLayout(product, count, delButton, addButton));
         invoiceBinder.bindInstanceFields(this);
@@ -168,6 +197,8 @@ public class InvoiceViewAdd extends VerticalLayout implements ViewConstructor {
                 invoice.setNumber(Long.parseLong(number.getValue()));
                 invoice.setDate(Date.from(Instant.from(date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())));
                 invoice.setInStock(Boolean.parseBoolean(isInStock.getValue()));
+                invoice.setPaid(Boolean.parseBoolean(isPaid.getValue()));
+                invoice.setReceived(Boolean.parseBoolean(isReceived.getValue()));
                 productMenu.getChildren().forEach(line -> {
                     InvoiceProduct invoiceProduct = new InvoiceProduct();
                     line.getChildren().forEach(element -> {
@@ -197,7 +228,7 @@ public class InvoiceViewAdd extends VerticalLayout implements ViewConstructor {
 
     private Button backButton() {
         Button backButton = new Button("Назад");
-        backButton.addSingleClickListener(click -> UI.getCurrent().navigate(OrderViewAll.class));
+        backButton.addSingleClickListener(click -> UI.getCurrent().navigate(InvoiceViewAll.class));
         return backButton;
     }
 }

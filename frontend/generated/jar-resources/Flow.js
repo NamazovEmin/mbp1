@@ -1,4 +1,5 @@
-import { ConnectionIndicator, ConnectionState } from '@vaadin/common-frontend';
+import {ConnectionIndicator, ConnectionState} from '@vaadin/common-frontend';
+
 class FlowUiInitializationError extends Error {
 }
 // flow uses body for keeping references
@@ -156,6 +157,9 @@ export class Flow {
                         this.container.style.display = '';
                         resolve(this.container);
                     }
+                    this.loadingFinished();
+                };
+                this.container.serverPaused = () => {
                     this.loadingFinished();
                 };
                 // Call server side to navigate to the given route

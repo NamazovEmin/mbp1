@@ -242,6 +242,8 @@ public class ClientDBTesting {
         invoice.setNumber(456L);
         invoice.setDate(new Date(2023,9,17));
         invoice.setInStock(false);
+        invoice.setReceived(false);
+        invoice.setPaid(false);
 
         invoiceRepository.save(invoice);
 

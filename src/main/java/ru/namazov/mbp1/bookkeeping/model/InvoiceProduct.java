@@ -3,6 +3,16 @@
  * http://www.topsbi.ru
  */
 
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
 package ru.namazov.mbp1.bookkeeping.model;
 
 import ru.namazov.mbp1.base.model.BaseEntity;

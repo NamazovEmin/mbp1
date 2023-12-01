@@ -3,6 +3,16 @@
  * http://www.topsbi.ru
  */
 
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
 package ru.namazov.mbp1.bookkeeping.view;
 
 import com.vaadin.flow.component.UI;
@@ -30,8 +40,8 @@ public class InvoiceView extends VerticalLayout implements HasUrlParameter<Long>
     private TextField dateField;
     private TextField numberField;
     private TextField isInStockField;
-    private TextField addressField;
-    private TextField contactMenField;
+    private TextField isPaid;
+    private TextField isReceived;
     private TextField telNumberField;
 
     public InvoiceView(InvoicePresenter invoicePresenter) {
@@ -80,9 +90,33 @@ public class InvoiceView extends VerticalLayout implements HasUrlParameter<Long>
         }
         isInStockField.setReadOnly(true);
 
+        isPaid = new TextField();
+        isPaid.setLabel("Накладная оплачена?");
+        isPaid.setSizeFull();
+        if (invoice.isPaid()) {
+            isPaid.setValue("Да");
+        } else {
+            isPaid.setValue("Нет");
+        }
+        isPaid.setReadOnly(true);
+
+        isReceived = new TextField();
+        isReceived.setLabel("Товар получен?");
+        isReceived.setSizeFull();
+        if (invoice.isReceived()) {
+            isReceived.setValue("Да");
+        } else {
+            isReceived.setValue("Нет");
+        }
+        isReceived.setReadOnly(true);
+
+
+
         add(dateField);
         add(numberField);
         add(isInStockField);
+        add(isPaid);
+        add(isReceived);
         add(makeProductMenu());
     }
 

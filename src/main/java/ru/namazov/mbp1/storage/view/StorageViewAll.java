@@ -99,7 +99,7 @@ public class StorageViewAll extends VerticalLayout implements ViewConstructor {
         readButton.addSingleClickListener(click -> {
             Storage storage = table.asSingleSelect().getValue();
             if (storage != null) {
-                UI.getCurrent().navigate(StorageProductViewAll.class, storage.getId());
+                UI.getCurrent().navigate(StorageView.class, storage.getId());
             }
         });
         return readButton;
